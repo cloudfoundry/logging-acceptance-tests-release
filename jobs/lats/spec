@@ -1,0 +1,23 @@
+---
+name: lats
+
+description: "The logging acceptance tests."
+
+packages:
+  - golang1.9.2
+  - lats
+templates:
+  run.erb: bin/run
+  config.json.erb: bin/config.json
+
+consumes:
+- name: trafficcontroller
+  type: trafficcontroller
+- name: reverse_log_proxy
+  type: reverse_log_proxy
+
+properties:
+  ssl.skip_cert_verify:
+    description: ""
+  metron_agent.dropsonde_incoming_port:
+    description: "port for tests to send metrics to metron"

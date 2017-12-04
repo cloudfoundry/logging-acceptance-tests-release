@@ -1,0 +1,3 @@
+#!/bin/bash
+
+bosh -e lite -d lats run-errand lats
