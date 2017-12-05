@@ -1,0 +1,21 @@
+name: logging-acceptance-tests
+version: "1"
+commit_hash: "7503954"
+uncommitted_changes: false
+jobs:
+- name: lats
+  version: c8e9e561d6a196ca9e17e36a0bdfee801c5b729e
+  fingerprint: c8e9e561d6a196ca9e17e36a0bdfee801c5b729e
+  sha1: 853c57c0d4e0d317790afc051e25ca9a49c200d7
+packages:
+- name: golang1.9.2
+  version: 2206cd4937e897c2a6639f93db9683a529b73e5c
+  fingerprint: 2206cd4937e897c2a6639f93db9683a529b73e5c
+  sha1: c11259031c7f9357743519414176d8c71eb56d07
+  dependencies: []
+- name: lats
+  version: 233a9f26cd28c40fd9ca2ad0d92a8738762c715d
+  fingerprint: 233a9f26cd28c40fd9ca2ad0d92a8738762c715d
+  sha1: bbe7055856fe5a69a69c1a7df3d24d18823c44fd
+  dependencies:
+  - golang1.9.2
