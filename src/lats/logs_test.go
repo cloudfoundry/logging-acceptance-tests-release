@@ -2,6 +2,8 @@ package lats_test
 
 import (
 	"crypto/tls"
+	"fmt"
+	"math/rand"
 	"reflect"
 	"time"
 
@@ -22,14 +24,15 @@ const (
 var _ = Describe("Logs", func() {
 	Describe("emit v1 and consume via traffic controller", func() {
 		It("gets through recent logs", func() {
-			env := createLogEnvelopeV1("Recent log message", "foo")
+			appID := randAppID()
+			env := createLogEnvelopeV1("Recent log message", appID)
 			EmitToMetronV1(env)
 
 			tlsConfig := &tls.Config{InsecureSkipVerify: true}
 			consumer := consumer.New(config.DopplerEndpoint, tlsConfig, nil)
 
 			getRecentLogs := func() []*events.LogMessage {
-				envelopes, err := consumer.RecentLogs("foo", "")
+				envelopes, err := consumer.RecentLogs(appID, "")
 				Expect(err).NotTo(HaveOccurred())
 				return envelopes
 			}
@@ -38,12 +41,13 @@ var _ = Describe("Logs", func() {
 		})
 
 		It("sends log messages for a specific app through the stream endpoint", func() {
-			msgChan, errorChan := ConnectToStream("foo")
+			appID := randAppID()
+			msgChan, errorChan := ConnectToStream(appID)
 
-			env := createLogEnvelopeV1("Stream message", "foo")
+			env := createLogEnvelopeV1("Stream message", appID)
 			EmitToMetronV1(env)
 
-			receivedEnvelope, err := FindMatchingEnvelopeByID("foo", msgChan)
+			receivedEnvelope, err := FindMatchingEnvelopeByID(appID, msgChan)
 			Expect(err).NotTo(HaveOccurred())
 
 			Expect(receivedEnvelope.LogMessage).To(Equal(env.LogMessage))
@@ -54,14 +58,15 @@ var _ = Describe("Logs", func() {
 
 	Describe("emit v2 and consume via traffic controller", func() {
 		It("gets through recent logs", func() {
-			env := createLogEnvelopeV2("Recent log message", "foo")
+			appID := randAppID()
+			env := createLogEnvelopeV2("Recent log message", appID)
 			EmitToMetronV2(env)
 
 			tlsConfig := &tls.Config{InsecureSkipVerify: true}
 			consumer := consumer.New(config.DopplerEndpoint, tlsConfig, nil)
 
 			getRecentLogs := func() []*events.LogMessage {
-				envelopes, err := consumer.RecentLogs("foo", "")
+				envelopes, err := consumer.RecentLogs(appID, "")
 				Expect(err).NotTo(HaveOccurred())
 				return envelopes
 			}
@@ -79,12 +84,13 @@ var _ = Describe("Logs", func() {
 		})
 
 		It("sends log messages for a specific app through the stream endpoint", func() {
-			msgChan, errorChan := ConnectToStream("foo-stream")
+			appID := randAppID()
+			msgChan, errorChan := ConnectToStream(appID)
 
-			env := createLogEnvelopeV2("Stream message", "foo-stream")
+			env := createLogEnvelopeV2("Stream message", appID)
 			EmitToMetronV2(env)
 
-			receivedEnvelope, err := FindMatchingEnvelopeByID("foo-stream", msgChan)
+			receivedEnvelope, err := FindMatchingEnvelopeByID(appID, msgChan)
 			Expect(err).NotTo(HaveOccurred())
 
 			v1EnvLogMsg := &events.LogMessage{
@@ -104,9 +110,10 @@ var _ = Describe("Logs", func() {
 
 	Describe("emit v1 and consume via reverse log proxy", func() {
 		It("sends log messages through rlp", func() {
-			msgChan := ReadFromRLP("rlp-stream-foo", false)
+			appID := randAppID()
+			msgChan := ReadFromRLP(appID, false)
 
-			env := createLogEnvelopeV1("Stream message", "rlp-stream-foo")
+			env := createLogEnvelopeV1("Stream message", appID)
 			EmitToMetronV1(env)
 
 			v2EnvLog := &v2.Log{
@@ -129,9 +136,10 @@ var _ = Describe("Logs", func() {
 		})
 
 		It("sends log messages through rlp with preferred tags", func() {
-			msgChan := ReadFromRLP("rlp-stream-foo", true)
+			appID := randAppID()
+			msgChan := ReadFromRLP(appID, true)
 
-			env := createLogEnvelopeV1("Stream message", "rlp-stream-foo")
+			env := createLogEnvelopeV1("Stream message", appID)
 			EmitToMetronV1(env)
 
 			v2EnvLog := &v2.Log{
@@ -156,9 +164,10 @@ var _ = Describe("Logs", func() {
 
 	Describe("emit v2 and consume via reverse log proxy", func() {
 		It("sends log messages through rlp", func() {
-			msgChan := ReadFromRLP("rlp-stream-foo", false)
+			appID := randAppID()
+			msgChan := ReadFromRLP(appID, false)
 
-			env := createLogEnvelopeV2("Stream message", "rlp-stream-foo")
+			env := createLogEnvelopeV2("Stream message", appID)
 			EmitToMetronV2(env)
 
 			giveUp := time.NewTimer(5 * time.Second)
@@ -209,4 +218,8 @@ func createLogEnvelopeV2(message, appID string) *v2.Envelope {
 			},
 		},
 	}
+}
+
+func randAppID() string {
+	return fmt.Sprintf("lats - %d", rand.Int63())
 }
