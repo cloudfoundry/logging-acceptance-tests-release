@@ -122,15 +122,12 @@ func EmitToMetronV2(envelope *v2.Envelope) {
 
 	s, err := c.Sender(context.Background())
 	Expect(err).NotTo(HaveOccurred())
-	defer s.CloseSend()
+	defer s.CloseAndRecv()
 
 	for i := 0; i < WriteCount; i++ {
 		err = s.Send(envelope)
 		Expect(err).NotTo(HaveOccurred())
 	}
-
-	// Give the connection time to send the messages before closing up
-	time.Sleep(500 * time.Millisecond)
 }
 
 func ReadFromRLP(appID string, usePreferredTags bool) <-chan *v2.Envelope {
