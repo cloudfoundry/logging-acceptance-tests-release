@@ -19,4 +19,4 @@ echo CONFIG=$CONFIG
 
 echo "Running logging acceptance tests..."
 
-ginkgo -r
+ginkgo -r -slowSpecThreshold 30s
