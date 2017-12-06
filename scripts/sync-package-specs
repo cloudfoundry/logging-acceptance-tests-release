@@ -30,6 +30,6 @@ function sync_package() {
   )
 }
 
-sync_package lats  -test lats &
+sync_package lats  -test code.cloudfoundry.org/logging-acceptance-tests &
 
 wait

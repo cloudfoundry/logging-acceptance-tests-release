@@ -6,6 +6,7 @@ files:
 - github.com/onsi/ginkgo/**/*.go
 - code.cloudfoundry.org/go-loggregator/*.go # gosub
 - code.cloudfoundry.org/go-loggregator/rpc/loggregator_v2/*.go # gosub
+- code.cloudfoundry.org/logging-acceptance-tests/*.go # gosub
 - github.com/cloudfoundry/dropsonde/emitter/*.go # gosub
 - github.com/cloudfoundry/dropsonde/factories/*.go # gosub
 - github.com/cloudfoundry/dropsonde/instrumented_handler/*.go # gosub
@@ -110,4 +111,3 @@ files:
 - google.golang.org/grpc/tap/*.go # gosub
 - google.golang.org/grpc/transport/*.go # gosub
 - gopkg.in/yaml.v2/*.go # gosub
-- lats/*.go # gosub
