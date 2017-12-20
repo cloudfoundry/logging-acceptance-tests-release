@@ -49,3 +49,6 @@
 [submodule "src/lats"]
 	path = src/code.cloudfoundry.org/logging-acceptance-tests
 	url = https://github.com/cloudfoundry/logging-acceptance-tests
+[submodule "src/code.cloudfoundry.org/go-diodes"]
+	path = src/code.cloudfoundry.org/go-diodes
+	url = https://github.com/cloudfoundry/go-diodes
