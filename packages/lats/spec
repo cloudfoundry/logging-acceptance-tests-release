@@ -4,6 +4,7 @@ dependencies:
   - golang1.9.2
 files:
 - github.com/onsi/ginkgo/**/*.go
+- code.cloudfoundry.org/go-diodes/*.go # gosub
 - code.cloudfoundry.org/go-loggregator/*.go # gosub
 - code.cloudfoundry.org/go-loggregator/rpc/loggregator_v2/*.go # gosub
 - code.cloudfoundry.org/logging-acceptance-tests/*.go # gosub
