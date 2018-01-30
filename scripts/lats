@@ -1,3 +1,10 @@
 #!/bin/bash
 
-bosh -e lite -d lats run-errand lats
+set -ex
+
+env_name="${1:-lite}"
+
+bosh run-errand lats \
+    --keep-alive \
+    --environment="$env_name" \
+    --deployment=lats
