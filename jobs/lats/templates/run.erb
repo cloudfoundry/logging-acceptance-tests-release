@@ -2,7 +2,7 @@
 
 set -e
 
-export GOROOT=$(readlink -nf /var/vcap/packages/golang1.10.2)
+export GOROOT=$(readlink -nf /var/vcap/packages/golang1.9.6)
 export GOPATH=/var/vcap/packages/lats
 export PATH=${GOROOT}/bin:${GOPATH}/bin:${PATH}
 
