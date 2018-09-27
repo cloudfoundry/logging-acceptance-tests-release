@@ -10,6 +10,20 @@ releases:
   version: latest
 - name: loggregator
   version: latest
+- name: loggregator-agent
+  version: latest
+- name: bpm
+  version: latest
+
+addons:
+- name: bpm
+  include:
+    stemcell:
+    - os: ubuntu-trusty
+  jobs:
+  - name: bpm
+    release: bpm
+
 
 instance_groups:
 - name: lats
@@ -30,30 +44,29 @@ instance_groups:
     properties:
       traffic_controller:
         disable_access_control: true
-  - name: metron_agent
-    release: loggregator
+  - name: loggregator_agent
+    release: loggregator-agent
     consumes:
       doppler: {from: doppler, deployment: loggregator}
-    properties: &metron_agent_properties
+    properties: &agent_properties
       doppler:
         addr: ~
-      metron_agent:
-        disable_udp: false
-        deployment: loggregator
-        bosh_dns: true
+      disable_udp: false
+      deployment: loggregator
+      bosh_dns: true
       loggregator:
         tls:
-          ca_cert: "((loggregator_metron.ca))"
-          metron:
-            cert: "((loggregator_metron.certificate))"
-            key: "((loggregator_metron.private_key))"
+          ca_cert: "((loggregator_agent.ca))"
+          agent:
+            cert: "((loggregator_agent.certificate))"
+            key: "((loggregator_agent.private_key))"
 
 variables:
-- name: loggregator_metron
+- name: loggregator_agent
   type: certificate
   options:
     ca: loggregator_ca
-    common_name: metron
+    common_name: agent
     extended_key_usage:
     - client_auth
     - server_auth
