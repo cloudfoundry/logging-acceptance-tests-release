@@ -67,6 +67,8 @@ variables:
   options:
     ca: loggregator_ca
     common_name: agent
+    alternative_names:
+    - metron
     extended_key_usage:
     - client_auth
     - server_auth
