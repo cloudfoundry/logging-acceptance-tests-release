@@ -1,0 +1,19 @@
+---
+name: noop-syslog-server
+
+templates:
+  bpm.yml.erb: config/bpm.yml
+  sink.crt.erb: config/certs/sink.crt
+  sink.key.erb: config/certs/sink.key
+
+packages:
+- syslog-server
+
+properties:
+  http_port:
+    description: "Port on which the server is serving HTTP"
+    default: 8080
+  ssl.cert:
+    description: "SSL certificate for syslog-server"
+  ssl.key:
+    description: "SSL private key for syslog-server"

@@ -30,6 +30,7 @@ function sync_package() {
   )
 }
 
-sync_package lats  -test code.cloudfoundry.org/logging-acceptance-tests &
+sync_package lats           -test code.cloudfoundry.org/logging-acceptance-tests &
+sync_package syslog-server  -app code.cloudfoundry.org/logging-acceptance-tests/cmd/syslog-server &
 
 wait

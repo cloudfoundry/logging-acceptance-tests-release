@@ -1,0 +1,9 @@
+---
+name: syslog-server
+
+dependencies:
+- golang1.11.2
+
+files:
+- code.cloudfoundry.org/go-envstruct/*.go # gosub
+- code.cloudfoundry.org/logging-acceptance-tests/cmd/syslog-server/*.go # gosub

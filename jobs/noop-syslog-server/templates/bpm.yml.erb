@@ -1,0 +1,8 @@
+processes:
+  - name: noop-syslog-server
+    executable: /var/vcap/packages/syslog-server/syslog-server
+    env:
+      HTTP_PORT: "<%= p("http_port") %>"
+      CERT_FILE: /var/vcap/jobs/noop-syslog-server/config/certs/sink.crt
+      KEY_FILE: /var/vcap/jobs/noop-syslog-server/config/certs/sink.key
+
