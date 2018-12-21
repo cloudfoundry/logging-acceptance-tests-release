@@ -54,4 +54,4 @@
 	url = https://github.com/cloudfoundry/go-diodes
 [submodule "src/code.cloudfoundry.org/go-envstruct"]
 	path = src/code.cloudfoundry.org/go-envstruct
-	url = https://code.cloudfoundry.org/go-envstruct
+	url = https://github.com/cloudfoundry/go-envstruct
