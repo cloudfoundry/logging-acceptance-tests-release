@@ -40,20 +40,20 @@ instance_groups:
   - name: lats
     release: logging-acceptance-tests
     consumes:
-      trafficcontroller: {from: trafficcontroller, deployment: cf}
-      reverse_log_proxy: {from: reverse_log_proxy, deployment: cf}
+      trafficcontroller: {from: trafficcontroller, deployment: loggregator}
+      reverse_log_proxy: {from: reverse_log_proxy, deployment: loggregator}
     properties:
       traffic_controller:
         disable_access_control: true
   - name: loggregator_agent
     release: loggregator-agent
     consumes:
-      doppler: {from: doppler, deployment: cf}
+      doppler: {from: doppler, deployment: loggregator}
     properties: &agent_properties
       doppler:
         addr: ~
       disable_udp: false
-      deployment: cf
+      deployment: loggregator
       bosh_dns: true
       loggregator:
         tls:
