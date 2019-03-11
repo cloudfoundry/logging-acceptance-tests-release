@@ -15,5 +15,4 @@ releases/**/*.tgz
 /bin
 /pkg
 /src/github.com/codegangsta
-/src/github.com/vito/
 /src/lats/lats.test
