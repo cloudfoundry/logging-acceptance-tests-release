@@ -46,7 +46,7 @@
 [submodule "src/github.com/nu7hatch/gouuid"]
 	path = src/github.com/nu7hatch/gouuid
 	url = https://github.com/nu7hatch/gouuid
-[submodule "src/lats"]
+[submodule "src/code.cloudfoundry.org/logging-acceptance-tests"]
 	path = src/code.cloudfoundry.org/logging-acceptance-tests
 	url = https://github.com/cloudfoundry/logging-acceptance-tests
 [submodule "src/code.cloudfoundry.org/go-diodes"]
