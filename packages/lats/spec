@@ -1,7 +1,7 @@
 ---
 name: lats
 dependencies:
-  - golang1.12.4
+  - golang-1-linux
 files:
 - github.com/onsi/ginkgo/**/*.go
 - code.cloudfoundry.org/go-diodes/*.go # gosub

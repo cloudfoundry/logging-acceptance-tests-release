@@ -4,7 +4,7 @@ name: lats
 description: "The logging acceptance tests."
 
 packages:
-  - golang1.12.4
+  - golang-1-linux
   - lats
 templates:
   run.erb: bin/run
